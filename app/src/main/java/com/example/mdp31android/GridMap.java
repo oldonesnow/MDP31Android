@@ -4,9 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.util.AttributeSet;
+
 
 public class GridMap extends View {
     // Constants for grid dimensions
@@ -20,12 +21,16 @@ public class GridMap extends View {
 
     private int[][] cells; // 2D array for the grid
 
+    public GridMap(Context context) {
+        super(context);
+        initPaints();
+        initMap();
+    }
     public GridMap(Context context, AttributeSet attrs) {
         super(context, attrs);
         initPaints();
         initMap();
     }
-
     // Initialize paint objects for drawing the grid
     private void initPaints() {
         exploredPaint.setColor(Color.LTGRAY); // Color for explored cells
