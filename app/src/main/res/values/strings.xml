@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MDP31Android</string>
+
+<!--Bluetooth related-->
+    <string name="bluetooth_connection">Not Connected</string>
+
 </resources>
