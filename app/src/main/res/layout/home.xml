@@ -274,7 +274,8 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_marginStart="10dp"
-                            android:background="@color/transparent"/>
+                            android:background="@color/transparent"
+                            android:foreground="@drawable/left_arrow" />
 
                         <ImageButton
                             android:id="@+id/upBtn"
@@ -282,7 +283,7 @@
                             android:layout_height="50dp"
                             android:layout_marginStart="15dp"
                             android:background="@color/transparent"
-                            android:foreground="@drawable/placeholder" />
+                            android:foreground="@drawable/up_arrow" />
 
                         <ImageButton
                             android:id="@+id/rightBtn"
@@ -290,7 +291,7 @@
                             android:layout_height="50dp"
                             android:layout_marginStart="15dp"
                             android:background="@color/transparent"
-                            android:foreground="@drawable/placeholder" />
+                            android:foreground="@drawable/right_arrow" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -306,7 +307,7 @@
                             android:layout_height="50dp"
 
                             android:background="@color/transparent"
-                            android:foreground="@drawable/placeholder" />
+                            android:foreground="@drawable/left_arrow" />
 
                         <ImageButton
                             android:id="@+id/downBtn"
@@ -322,7 +323,7 @@
                             android:layout_height="50dp"
                             android:layout_marginStart="15dp"
                             android:background="@color/transparent"
-                            android:foreground="@drawable/placeholder" />
+                            android:foreground="@drawable/right_arrow" />
                     </LinearLayout>
                 </LinearLayout>
 
