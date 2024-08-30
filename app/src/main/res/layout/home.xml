@@ -314,7 +314,7 @@
                             android:layout_height="50dp"
                             android:layout_marginStart="15dp"
                             android:background="@color/transparent"
-                            android:foreground="@drawable/placeholder" />
+                            android:foreground="@drawable/down_arrow" />
 
                         <ImageButton
                             android:id="@+id/brightBtn"
