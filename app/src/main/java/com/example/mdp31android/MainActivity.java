@@ -1,11 +1,9 @@
 package com.example.mdp31android;
 
-import android.Manifest;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,12 +11,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -28,7 +22,6 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int REQUEST_LOCATION_PERMISSION = 1; // Request code for location permission
     final Handler handler = new Handler();
     // Declaration Variables
     private static SharedPreferences sharedPreferences;
@@ -38,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private static GridMap gridMap;
     static TextView xAxisTextView, yAxisTextView, directionAxisTextView;
     static TextView robotStatusTextView, bluetoothStatus, bluetoothDevice;
-    static ImageButton upBtn, downBtn, leftBtn, rightBtn, bleftBtn, brightBtn;
+    static ImageButton upBtn, downBtn, leftBtn, rightBtn,bleftBtn,brightBtn;
 
     BluetoothDevice mBTDevice;
     private static UUID myUUID;
@@ -61,22 +54,30 @@ public class MainActivity extends AppCompatActivity {
         // Initialization
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-       // getSupportActionBar().hide();
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
         SectionsPagerAdapter sectionsPagerAdapter2 = new SectionsPagerAdapter(getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        sectionsPagerAdapter2.addFragment(new Home(), "Home");
-        sectionsPagerAdapter2.addFragment(new BluetoothSetUp(), "Bluetooth");
+//        sectionsPagerAdapter.addFragment(new BluetoothCommunications(),"CHAT");
+        sectionsPagerAdapter2.addFragment(new Home(),"Home");
+        sectionsPagerAdapter2.addFragment(new BluetoothSetUp(),"Bluetooth");
+        sectionsPagerAdapter2.addFragment(new EmergencyFragment(),"Add Obstacle");
 
         ViewPager viewPager2 = findViewById(R.id.view_pager2);
         viewPager2.setAdapter(sectionsPagerAdapter2);
         viewPager2.setOffscreenPageLimit(2);
 
+
         TabLayout tabs2 = findViewById(R.id.tabs2);
         tabs2.setupWithViewPager(viewPager2);
 
         // Set up sharedPreferences
-        MainActivity.context = getApplicationContext();}}
+        MainActivity.context = getApplicationContext();
 
+
+    }
+
+
+}
