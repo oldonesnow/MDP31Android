@@ -64,8 +64,8 @@ public class Home extends Fragment {
     String obstacleID;
 
     private static final String TAG = "Main Activity";
-//    public static boolean stopTimerFlag = false;
-//    public static boolean stopWk9TimerFlag = false;
+   public static boolean stopTimerFlag = false;
+   public static boolean stopWk9TimerFlag = false;
 
     public static boolean trackRobot = true;
 
@@ -91,9 +91,9 @@ public class Home extends Fragment {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity().getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
-        //sectionsPagerAdapter.addFragment(new MappingFragment(),"MAP CONFIG");
+        sectionsPagerAdapter.addFragment(new MappingFragment(),"MAP CONFIG");
         sectionsPagerAdapter.addFragment(new BluetoothCommunications(),"CHAT");
-        //sectionsPagerAdapter.addFragment(new ControlFragment(),"CHALLENGE");
+        sectionsPagerAdapter.addFragment(new ControlFragment(),"CHALLENGE");
 
         ViewPager viewPager = root.findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
