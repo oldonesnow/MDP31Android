@@ -25,6 +25,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
+                    android:textStyle="bold"
                     android:text="TASK 1"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
@@ -34,24 +35,26 @@
                 <TextView
                     android:id="@+id/exploreTimeTextView2"
                     android:layout_width="180dp"
-                    android:layout_height="40dp"
-                    android:background="@color/white"
+                    android:layout_height="53dp"
+                    android:background="@color/black"
                     android:gravity="center"
                     android:text="00:00"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="26sp" />
 
-                <ToggleButton
-                    android:id="@+id/exploreToggleBtn2"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Exploration"
-                    android:textOff="TASK 1 START"
-                    android:textOn="STOP" />
                 <!--                android:drawableEnd="@mipmap/qqqq"
                     android:background="@drawable/border_black_state"-->
 
+
+                <ToggleButton
+                    android:id="@+id/exploreToggleBtn2"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/lighterYellow"
+                    android:text="Exploration"
+                    android:textOff="TASK 1 START"
+                    android:textOn="STOP" />
 
                 <ImageButton
                     android:id="@+id/exploreResetImageBtn2"
@@ -71,10 +74,11 @@
             android:layout_width="200dp"
             android:layout_height="350dp"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="180dp"
-                android:layout_marginStart="10dp"
                 android:layout_height="350dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
@@ -84,6 +88,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
+                    android:textStyle="bold"
                     android:text="TASK 2"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
@@ -93,23 +98,28 @@
                 <TextView
                     android:id="@+id/fastestTimeTextView2"
                     android:layout_width="180dp"
-                    android:layout_height="40dp"
-                    android:background="@color/white"
+                    android:layout_height="49dp"
+                    android:background="@color/black"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     android:text="00:00"
+                    android:textColor="@color/white"
                     android:textSize="26sp" />
+
+                <!--                android:drawableEnd="@mipmap/qqqq"
+                                    android:background="@drawable/border_black_state"-->
 
                 <ToggleButton
                     android:id="@+id/fastestToggleBtn2"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="69dp"
                     android:layout_marginTop="20dp"
+                    android:background="@color/lighterYellow"
+                    android:gravity="center
+"
                     android:text="FASTEST"
                     android:textOff="TASK 2 START"
                     android:textOn="STOP" />
-                <!--                android:drawableEnd="@mipmap/qqqq"
-                                    android:background="@drawable/border_black_state"-->
+
                 <ImageButton
                     android:id="@+id/fastestResetImageBtn2"
                     style="@style/Widget.AppCompat.ImageButton"
@@ -117,7 +127,7 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="65dp"
                     android:layout_marginTop="30dp"
-                    android:background="@color/transparent"/>
+                    android:background="@color/transparent" />
                 <!--                app:srcCompat="@drawable/ic_refresh"-->
             </LinearLayout>
         </LinearLayout>
