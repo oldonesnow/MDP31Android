@@ -275,7 +275,7 @@
                             android:layout_height="50dp"
                             android:layout_marginStart="10dp"
                             android:background="@color/transparent"
-                            android:foreground="@drawable/left_arrow" />
+                            android:foreground="@drawable/left_up" />
 
                         <ImageButton
                             android:id="@+id/upBtn"
@@ -291,7 +291,7 @@
                             android:layout_height="50dp"
                             android:layout_marginStart="15dp"
                             android:background="@color/transparent"
-                            android:foreground="@drawable/right_arrow" />
+                            android:foreground="@drawable/right_up" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -307,7 +307,7 @@
                             android:layout_height="50dp"
 
                             android:background="@color/transparent"
-                            android:foreground="@drawable/left_arrow" />
+                            android:foreground="@drawable/left_down" />
 
                         <ImageButton
                             android:id="@+id/downBtn"
@@ -323,7 +323,7 @@
                             android:layout_height="50dp"
                             android:layout_marginStart="15dp"
                             android:background="@color/transparent"
-                            android:foreground="@drawable/right_arrow" />
+                            android:foreground="@drawable/right_down" />
                     </LinearLayout>
                 </LinearLayout>
 
