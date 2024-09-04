@@ -26,8 +26,6 @@ public class DeviceListAdapter extends ArrayAdapter<BluetoothDevice> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("DeviceListAdapter", "Getting View");
-
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(mViewResourceId, parent, false);
         }
