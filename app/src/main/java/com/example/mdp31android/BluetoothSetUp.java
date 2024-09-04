@@ -351,7 +351,7 @@ public class BluetoothSetUp extends Fragment {
             //If discovering, cancel discovery and start again
             if (mBluetoothAdapter.isDiscovering()) {
                 mBluetoothAdapter.cancelDiscovery();
-//               checkBTPermissions();
+//                checkBTPermissions();
 
                 mBluetoothAdapter.startDiscovery();
                 IntentFilter discoverDevicesIntent = new IntentFilter(BluetoothDevice.ACTION_FOUND);
