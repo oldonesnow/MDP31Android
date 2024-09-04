@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    tools:context=".MainActivity">
 
     <!--    <ImageView-->
     <!--        android:layout_width="match_parent"-->
@@ -17,7 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/placeholder"
+        android:background="@drawable/spongebob_background"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
@@ -33,6 +32,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#000000"
                 android:scaleType="centerCrop"
                 android:src="@drawable/group_banner" />
 
