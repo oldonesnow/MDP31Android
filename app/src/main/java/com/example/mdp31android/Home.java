@@ -139,12 +139,12 @@ public class Home extends Fragment {
         directionAxisTextView = root.findViewById(R.id.directionAxisTextView);
 
 //        // initialize ITEM_LIST and imageBearings strings
-//        for (int i = 0; i < 20; i++) {
-//            for (int j = 0; j < 20; j++) {
-//                gridMap.ITEM_LIST.get(i)[j] = "";
-//                GridMap.imageBearings.get(i)[j] = "";
-//            }
-//        }
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 20; j++) {
+                gridMap.ITEM_LIST.get(i)[j] = "";
+                GridMap.imageBearings.get(i)[j] = "";
+            }
+        }
 
         // Controller
         upBtn = root.findViewById(R.id.upBtn);
