@@ -1058,8 +1058,8 @@ public class GridMap extends View {
             if (setObstacleStatus) {
                 if ((1 <= row && row <= 20) && (1 <= column && column <= 20)) { // if touch is within the grid
 
-                    if (!ITEM_LIST.get(row - 1)[column - 1].equals("")
-                            || !imageBearings.get(row - 1)[column - 1].equals("")) {
+                    if ((ITEM_LIST.get(row - 1)[column - 1] != null && !ITEM_LIST.get(row - 1)[column - 1].equals(""))
+                            || (imageBearings.get(row - 1)[column - 1] != null && !imageBearings.get(row - 1)[column - 1].equals("")))  {
                         showLog("An obstacle is already at drop location");
                     } else {
                         // get user input from spinners in MapTabFragment static values
