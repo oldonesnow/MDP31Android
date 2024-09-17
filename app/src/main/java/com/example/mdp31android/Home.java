@@ -413,9 +413,14 @@ public class Home extends Fragment {
                 } else {
                     direction = "";
                 }
-                gridMap.setCurCoord(Integer.valueOf(sentCoords[1]) + 2, 19 - Integer.valueOf(sentCoords[0]), direction);
+                // ADJUST THIS IF GRID COORDINATES ARE MESSED UP!! - Currently set to bottom left robot tile
+                //!!
+                //!!!
+                //!!!!!
+                //!!!!!!!!!!
+                gridMap.setCurCoord(Integer.valueOf(sentCoords[0]) + 2,  Integer.valueOf(sentCoords[1]) +1, direction);
             }
-            //image format from RPI is "TARGET~<obID>~<ImValue>" eg TARGET~3~7
+            //image format from RPI is "TARGET~<obID>~<ImValue>" eg TARGET,3,7
             else if (message.contains("TARGET")) {
                 try {
                     String[] cmd = message.split(",");
