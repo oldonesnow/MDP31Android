@@ -391,8 +391,9 @@ public class Home extends Fragment {
             ArrayList<String> mapCoord = new ArrayList<>();
 
             //STATUS:<input>
-            if (message.contains("STATUS")) {
-                robotStatusTextView.setText(message.split(":")[1]);
+            // Temporarily changed from STATUS to status for testing purposes. Change back if neccesary
+            if (message.contains("status")) {
+                robotStatusTextView.setText(message.split(":")[1].trim());
             }
             //ROBOT|5,4,EAST (Early version of updating robot position via comms)
             if (message.contains("ROBOT")) {
