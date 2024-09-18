@@ -711,7 +711,6 @@ public class GridMap extends View {
     String oldItem = "";
 
     // drag event to move obstacle
-    // drag event to move obstacle
     @Override
     public boolean onDragEvent(DragEvent dragEvent) {
         showLog("Entering onDragEvent");
