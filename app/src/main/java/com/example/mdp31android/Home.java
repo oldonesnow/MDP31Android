@@ -139,12 +139,12 @@ public class Home extends Fragment {
         directionAxisTextView = root.findViewById(R.id.directionAxisTextView);
 
 //        // initialize ITEM_LIST and imageBearings strings
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
-                gridMap.ITEM_LIST.get(i)[j] = "";
-                GridMap.imageBearings.get(i)[j] = "";
-            }
-        }
+//        for (int i = 0; i < 20; i++) {
+//            for (int j = 0; j < 20; j++) {
+//                gridMap.ITEM_LIST.get(i)[j] = "";
+//                GridMap.imageBearings.get(i)[j] = "";
+//            }
+//        }
 
         // Controller
         upBtn = root.findViewById(R.id.upBtn);
@@ -343,179 +343,179 @@ public class Home extends Fragment {
     // RPi relays the EXACT SAME stm commands sent by algo back to android: Starts with "Algo|"
     // RPi sends the image id as "TARGET~<obID>~<ImValue>"
     // Other specific strings are to clear checklist
-    BroadcastReceiver messageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            PathTranslator pathTranslator = new PathTranslator(gridMap);    // For real-time updating on displayed gridmap
-            String message = intent.getStringExtra("receivedMessage");
-            showLog("receivedMessage: message --- " + message);
-
-            String[] cmdd = message.split(",");
-
-//            if (message.contains(" "))
-//            {
-//                message= Arrays.toString(message.split(" "));
-//            }
-//            showLog("cmd1 --- " + cmdd[1]);
-//            showLog("cmd2 --- " + cmdd[2]);
-
-
-            int[] global_store = gridMap.getCurCoord();
-            g_coordX = global_store[0];
-            g_coordY = global_store[1];
-            ArrayList<String> mapCoord = new ArrayList<>();
-
-            //STATUS:<input>
-            if (message.contains("STATUS")) {
-                robotStatusTextView.setText(message.split(":")[1]);
-            }
-            //ROBOT|5,4,EAST (Early version of updating robot position via comms)
-            if(message.contains("ROBOT")) {
-                String[] cmd = message.split("\\|");
-                String[] sentCoords = cmd[1].split(",");
-                String[] sentDirection = sentCoords[2].split("\\.");
-//                BluetoothCommunications.getMessageReceivedTextView().append("\n");
-                String direction = "";
-                String abc = String.join("", sentDirection);
-                if (abc.contains("EAST")) {
-                    direction = "right";
-                }
-                else if (abc.contains("NORTH")) {
-                    direction = "up";
-                }
-                else if (abc.contains("WEST")) {
-                    direction = "left";
-                }
-                else if (abc.contains("SOUTH")) {
-                    direction = "down";
-                }
-                else{
-                    direction = "";
-                }
-                gridMap.setCurCoord(Integer.valueOf(sentCoords[1]) + 2, 19 - Integer.valueOf(sentCoords[0]), direction);
-            }
-            //image format from RPI is "TARGET~<obID>~<ImValue>" eg TARGET~3~7
-            else if(message.contains("TARGET")) {
-                try {
-                    String[] cmd = message.split(",");
-                    String temp2="-1";
-                    BluetoothCommunications.getMessageReceivedTextView().append("Obstacle no: " + cmd[1]+ "TARGET ID: " + cmd[2] + "\n");
-
-//                    if (cmd[2].contains("STOP"))
-//                    {
-//                        String temp=cmd[2];
-//                        String[] temp1=temp.split(" ");
-//                        temp2=temp1[0];
+//    BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            PathTranslator pathTranslator = new PathTranslator(gridMap);    // For real-time updating on displayed gridmap
+//            String message = intent.getStringExtra("receivedMessage");
+//            showLog("receivedMessage: message --- " + message);
 //
-//                    }
-
-                    gridMap.updateIDFromRpi(String.valueOf(Integer.valueOf(cmd[1])-1), cmd[2]);
-                    obstacleID = String.valueOf(Integer.valueOf(cmd[1]) - 2);
-
-
-//                    int ob= Integer.parseInt(obstacleID);
-
-                }
-                catch(Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-            else if(message.contains("ARROW")){
-                String[] cmd = message.split(",");
-//                BluetoothCommunications.getMessageReceivedTextView().append("Obstacle no: " + cmd[1]+ "TARGET ID: " + cmd[2] + "\n");
-
-                Home.refreshMessageReceivedNS("TASK2"+"\n");
-                Home.refreshMessageReceivedNS("obstacle id: "+cmd[1]+", ARROW: "+cmd[2]);
-
-
-//                updateStatus(cmd[0]+" "+ cmd[1]+" "+cmd[2]);
-            }
-            // OLD VER: Expects a syntax of e.g. Algo|f010. Commented out and implemented new version below
-/*            if(message.contains("Algo")) {
-                // translate the message after Algo|
-                if(trackRobot)
-                    pathTranslator.translatePath(message.split("\\|")[1]);
-//                pathTranslator.altTranslation(message.split("\\|")[1]);   // last min addition - untested
-            }*/
-
-            //NEW VER: Expects a syntax of eg. MOVE,<DISTANCE IN CM>,<DIRECTION>.
-            //NEW VER: Expects a syntax of eg. TURN,<DIRECTION>.
-
-            //CASE 1 & 2: MoveInstruction or TurnInstruction sent
-            else if(message.contains("MOVE") || message.contains("TURN")){
-                updateStatus("translation");
-                pathTranslator.translatePath(message); //splitting and translation will be done in PathTranslator
-            }
-            else if(message.contains("STOP"))
-            {
-                Home.refreshMessageReceivedNS("STOP received");
-//                showLog("received Stop");
-                Home.stopTimerFlag = true;
-                Home.stopWk9TimerFlag=true;
-                timerHandler.removeCallbacks(ControlFragment.timerRunnableExplore);
-                timerHandler.removeCallbacks(ControlFragment.timerRunnableFastest);
-            }
-            else{
-                BluetoothCommunications.getMessageReceivedTextView().append("unknown message received");
-                showLog("unknown message received");
-            }
-        }
-    };
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode){
-            case 1:
-                if(resultCode == Activity.RESULT_OK){
-                    mBTDevice = data.getExtras().getParcelable("mBTDevice");
-                    myUUID = (UUID) data.getSerializableExtra("myUUID");
-                }
-        }
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        try{
-            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(messageReceiver);
-            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mBroadcastReceiver5);
-        } catch(IllegalArgumentException e){
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-        try{
-            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mBroadcastReceiver5);
-        } catch(IllegalArgumentException e){
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        try{
-            IntentFilter filter2 = new IntentFilter("ConnectionStatus");
-            LocalBroadcastManager.getInstance(getContext()).registerReceiver(mBroadcastReceiver5, filter2);
-        } catch(IllegalArgumentException e){
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        showLog("Entering onSaveInstanceState");
-        super.onSaveInstanceState(outState);
-
-        outState.putString(TAG, "onSaveInstanceState");
-        showLog("Exiting onSaveInstanceState");
-    }
+//            String[] cmdd = message.split(",");
+//
+////            if (message.contains(" "))
+////            {
+////                message= Arrays.toString(message.split(" "));
+////            }
+////            showLog("cmd1 --- " + cmdd[1]);
+////            showLog("cmd2 --- " + cmdd[2]);
+//
+//
+//            int[] global_store = gridMap.getCurCoord();
+//            g_coordX = global_store[0];
+//            g_coordY = global_store[1];
+//            ArrayList<String> mapCoord = new ArrayList<>();
+//
+//            //STATUS:<input>
+//            if (message.contains("STATUS")) {
+//                robotStatusTextView.setText(message.split(":")[1]);
+//            }
+//            //ROBOT|5,4,EAST (Early version of updating robot position via comms)
+//            if(message.contains("ROBOT")) {
+//                String[] cmd = message.split("\\|");
+//                String[] sentCoords = cmd[1].split(",");
+//                String[] sentDirection = sentCoords[2].split("\\.");
+////                BluetoothCommunications.getMessageReceivedTextView().append("\n");
+//                String direction = "";
+//                String abc = String.join("", sentDirection);
+//                if (abc.contains("EAST")) {
+//                    direction = "right";
+//                }
+//                else if (abc.contains("NORTH")) {
+//                    direction = "up";
+//                }
+//                else if (abc.contains("WEST")) {
+//                    direction = "left";
+//                }
+//                else if (abc.contains("SOUTH")) {
+//                    direction = "down";
+//                }
+//                else{
+//                    direction = "";
+//                }
+//                gridMap.setCurCoord(Integer.valueOf(sentCoords[1]) + 2, 19 - Integer.valueOf(sentCoords[0]), direction);
+//            }
+//            //image format from RPI is "TARGET~<obID>~<ImValue>" eg TARGET~3~7
+//            else if(message.contains("TARGET")) {
+//                try {
+//                    String[] cmd = message.split(",");
+//                    String temp2="-1";
+//                    BluetoothCommunications.getMessageReceivedTextView().append("Obstacle no: " + cmd[1]+ "TARGET ID: " + cmd[2] + "\n");
+//
+////                    if (cmd[2].contains("STOP"))
+////                    {
+////                        String temp=cmd[2];
+////                        String[] temp1=temp.split(" ");
+////                        temp2=temp1[0];
+////
+////                    }
+//
+//                    gridMap.updateIDFromRpi(String.valueOf(Integer.valueOf(cmd[1])-1), cmd[2]);
+//                    obstacleID = String.valueOf(Integer.valueOf(cmd[1]) - 2);
+//
+//
+////                    int ob= Integer.parseInt(obstacleID);
+//
+//                }
+//                catch(Exception e)
+//                {
+//                    e.printStackTrace();
+//                }
+//            }
+//            else if(message.contains("ARROW")){
+//                String[] cmd = message.split(",");
+////                BluetoothCommunications.getMessageReceivedTextView().append("Obstacle no: " + cmd[1]+ "TARGET ID: " + cmd[2] + "\n");
+//
+//                Home.refreshMessageReceivedNS("TASK2"+"\n");
+//                Home.refreshMessageReceivedNS("obstacle id: "+cmd[1]+", ARROW: "+cmd[2]);
+//
+//
+////                updateStatus(cmd[0]+" "+ cmd[1]+" "+cmd[2]);
+//            }
+//            // OLD VER: Expects a syntax of e.g. Algo|f010. Commented out and implemented new version below
+///*            if(message.contains("Algo")) {
+//                // translate the message after Algo|
+//                if(trackRobot)
+//                    pathTranslator.translatePath(message.split("\\|")[1]);
+////                pathTranslator.altTranslation(message.split("\\|")[1]);   // last min addition - untested
+//            }*/
+//
+//            //NEW VER: Expects a syntax of eg. MOVE,<DISTANCE IN CM>,<DIRECTION>.
+//            //NEW VER: Expects a syntax of eg. TURN,<DIRECTION>.
+//
+//            //CASE 1 & 2: MoveInstruction or TurnInstruction sent
+//            else if(message.contains("MOVE") || message.contains("TURN")){
+//                updateStatus("translation");
+//                pathTranslator.translatePath(message); //splitting and translation will be done in PathTranslator
+//            }
+//            else if(message.contains("STOP"))
+//            {
+//                Home.refreshMessageReceivedNS("STOP received");
+////                showLog("received Stop");
+//                Home.stopTimerFlag = true;
+//                Home.stopWk9TimerFlag=true;
+//                timerHandler.removeCallbacks(ControlFragment.timerRunnableExplore);
+//                timerHandler.removeCallbacks(ControlFragment.timerRunnableFastest);
+//            }
+//            else{
+//                BluetoothCommunications.getMessageReceivedTextView().append("unknown message received");
+//                showLog("unknown message received");
+//            }
+//        }
+//    };
+//
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data){
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        switch (requestCode){
+//            case 1:
+//                if(resultCode == Activity.RESULT_OK){
+//                    mBTDevice = data.getExtras().getParcelable("mBTDevice");
+//                    myUUID = (UUID) data.getSerializableExtra("myUUID");
+//                }
+//        }
+//    }
+//
+//    @Override
+//    public void onDestroy(){
+//        super.onDestroy();
+//        try{
+//            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(messageReceiver);
+//            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mBroadcastReceiver5);
+//        } catch(IllegalArgumentException e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @Override
+//    public void onPause(){
+//        super.onPause();
+//        try{
+//            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mBroadcastReceiver5);
+//        } catch(IllegalArgumentException e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//        try{
+//            IntentFilter filter2 = new IntentFilter("ConnectionStatus");
+//            LocalBroadcastManager.getInstance(getContext()).registerReceiver(mBroadcastReceiver5, filter2);
+//        } catch(IllegalArgumentException e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        showLog("Entering onSaveInstanceState");
+//        super.onSaveInstanceState(outState);
+//
+//        outState.putString(TAG, "onSaveInstanceState");
+//        showLog("Exiting onSaveInstanceState");
+//    }
     private void updateStatus(String message) {
         Toast toast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP,0, 0);
