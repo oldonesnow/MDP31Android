@@ -55,7 +55,7 @@ public class Home extends Fragment {
     private static GridMap gridMap;
     static TextView xAxisTextView, yAxisTextView, directionAxisTextView;
     static TextView robotStatusTextView, bluetoothStatus, bluetoothDevice;
-    static ImageButton upBtn, downBtn, leftBtn, rightBtn,bleftBtn,brightBtn;
+    static ImageButton upBtn, downBtn, leftBtn, rightBtn, bleftBtn, brightBtn;
 
     BluetoothDevice mBTDevice;
     private static UUID myUUID;
@@ -64,13 +64,14 @@ public class Home extends Fragment {
     String obstacleID;
 
     private static final String TAG = "Main Activity";
-   public static boolean stopTimerFlag = false;
-   public static boolean stopWk9TimerFlag = false;
+    public static boolean stopTimerFlag = false;
+    public static boolean stopWk9TimerFlag = false;
 
     public static boolean trackRobot = true;
 
     private int g_coordX;
     private int g_coordY;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,13 +88,12 @@ public class Home extends Fragment {
                 Context.MODE_PRIVATE);
 
 
-
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity().getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
-        sectionsPagerAdapter.addFragment(new MappingFragment(),"MAP CONFIG");
-        sectionsPagerAdapter.addFragment(new BluetoothCommunications(),"CHAT");
-        sectionsPagerAdapter.addFragment(new ControlFragment(),"CHALLENGE");
+        sectionsPagerAdapter.addFragment(new MappingFragment(), "MAP CONFIG");
+        sectionsPagerAdapter.addFragment(new BluetoothCommunications(), "CHAT");
+        sectionsPagerAdapter.addFragment(new ControlFragment(), "CHALLENGE");
 
         ViewPager viewPager = root.findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -104,16 +104,15 @@ public class Home extends Fragment {
         tabs.setupWithViewPager(viewPager);
 
 
-
-//        LocalBroadcastManager
-//                .getInstance(getContext())
-//                .registerReceiver(messageReceiver, new IntentFilter("incomingMessage"));
+        LocalBroadcastManager
+                .getInstance(getContext())
+                .registerReceiver(messageReceiver, new IntentFilter("incomingMessage"));
 
         // Set up sharedPreferences
         Home.context = getContext();
         sharedPreferences();
         editor.putString("message", "");
-        editor.putString("direction","None");
+        editor.putString("direction", "None");
         editor.putString("connStatus", "Disconnected");
         editor.commit();
 
@@ -170,31 +169,60 @@ public class Home extends Fragment {
                     }
                 }
         );
-//        PathTranslator pathTranslator = new PathTranslator(gridMap);
-////        pathTranslator.translatePath("MOVE,FORWARD,30");
-//        return root;
+        PathTranslator pathTranslator = new PathTranslator(gridMap);
+//        pathTranslator.translatePath("MOVE,FORWARD,30");
         return root;
     }
 
     public static GridMap getGridMap() {
         return gridMap;
     }
-    public static TextView getRobotStatusTextView() {  return robotStatusTextView; }
 
-    public static ImageButton getUpBtn() { return upBtn; }
-    public static ImageButton getDownBtn() { return downBtn; }
-    public static ImageButton getLeftBtn() { return leftBtn; }
-    public static ImageButton getRightBtn() { return rightBtn; }
+    public static TextView getRobotStatusTextView() {
+        return robotStatusTextView;
+    }
 
-    public static ImageButton getbLeftBtn() { return bleftBtn; }
-    public static ImageButton getbRightBtn() { return brightBtn; }
+    public static ImageButton getUpBtn() {
+        return upBtn;
+    }
+
+    public static ImageButton getDownBtn() {
+        return downBtn;
+    }
+
+    public static ImageButton getLeftBtn() {
+        return leftBtn;
+    }
+
+    public static ImageButton getRightBtn() {
+        return rightBtn;
+    }
+
+    public static ImageButton getbLeftBtn() {
+        return bleftBtn;
+    }
+
+    public static ImageButton getbRightBtn() {
+        return brightBtn;
+    }
 
 
-    public static TextView getBluetoothStatus() { return bluetoothStatus; }
-    public static TextView getConnectedDevice() { return bluetoothDevice; }
+    public static TextView getBluetoothStatus() {
+        return bluetoothStatus;
+    }
+
+    public static TextView getConnectedDevice() {
+        return bluetoothDevice;
+    }
+
     // For week 8 only
-    public static boolean getTrackRobot() { return trackRobot; }
-    public static void toggleTrackRobot() { trackRobot = !trackRobot; }
+    public static boolean getTrackRobot() {
+        return trackRobot;
+    }
+
+    public static void toggleTrackRobot() {
+        trackRobot = !trackRobot;
+    }
 
     public static void sharedPreferences() {
         sharedPreferences = Home.getSharedPreferences(Home.context);
@@ -206,20 +234,20 @@ public class Home extends Fragment {
     }
 
     // Send Coordinates to alg
-    public static void printCoords(String message){
+    public static void printCoords(String message) {
         showLog("Displaying Coords untranslated and translated");
         showLog(message);
-        String[] strArr = message.split("_",2);
+        String[] strArr = message.split("_", 2);
 
         // Translated ver is sent
-        if (BluetoothConnectionService.BluetoothConnectionStatus == true){
+        if (BluetoothConnectionService.BluetoothConnectionStatus == true) {
             byte[] bytes = strArr[1].getBytes(Charset.defaultCharset());
             BluetoothConnectionService.write(bytes);
         }
 
         // Display both untranslated and translated coordinates on CHAT (for debugging)
         refreshMessageReceivedNS("Untranslated Coordinates: " + strArr[0] + "\n");
-        refreshMessageReceivedNS("Translated Coordinates: "+strArr[1]);
+        refreshMessageReceivedNS("Translated Coordinates: " + strArr[1]);
         showLog("Exiting printCoords");
     }
 
@@ -265,12 +293,12 @@ public class Home extends Fragment {
 //    }
 
     // Purely to display a message on the chat box - NOT SENT via BT
-    public static void refreshMessageReceivedNS(String message){
-        BluetoothCommunications.getMessageReceivedTextView().append(message+ "\n");
+    public static void refreshMessageReceivedNS(String message) {
+        BluetoothCommunications.getMessageReceivedTextView().append(message + "\n");
     }
 
-    public static void refreshMessageReceivedNS(int message){
-        BluetoothCommunications.getMessageReceivedTextView().append(message+ "\n");
+    public static void refreshMessageReceivedNS(int message) {
+        BluetoothCommunications.getMessageReceivedTextView().append(message + "\n");
     }
 
     public static void refreshDirection(String direction) {
@@ -280,16 +308,14 @@ public class Home extends Fragment {
         String dir;
         String newDir = gridMap.getRobotDirection();
 //        newDir = newDir.toUpperCase();
-        directionAxisTextView.setText(sharedPreferences.getString("direction","")); //changes the UI direction display as well
+        directionAxisTextView.setText(sharedPreferences.getString("direction", "")); //changes the UI direction display as well
         //printMessage("Direction is set to " + direction); //OLD VER
 
-        dir= (newDir.equals("up"))?"NORTH":(newDir.equals("down"))?"SOUTH":(newDir.equals("left"))?"WEST":"EAST";
-        if ((x - 2)>=0 && (y - 1)>=0)
-        {
+        dir = (newDir.equals("up")) ? "NORTH" : (newDir.equals("down")) ? "SOUTH" : (newDir.equals("left")) ? "WEST" : "EAST";
+        if ((x - 2) >= 0 && (y - 1) >= 0) {
 //          BluetoothCommunications.getMessageReceivedTextView().append("ROBOT" + "," + (col - 2)*5 + "," + (row - 1)*5 + "," + dir.toUpperCase());
-            Home.printMessage("ROBOT" + "," + (x-2)*5 + "," + (y-1)*5 + "," + dir.toUpperCase());
-        }
-        else{
+            Home.printMessage("ROBOT" + "," + (x - 2) * 5 + "," + (y - 1) * 5 + "," + dir.toUpperCase());
+        } else {
             showLog("out of grid");
         }
 //        printMessage("ROBOT,"+ x + "," + y + "," + dir);
@@ -298,9 +324,9 @@ public class Home extends Fragment {
     }
 
     public static void refreshLabel() {
-        xAxisTextView.setText(String.valueOf(gridMap.getCurCoord()[0]-1));
-        yAxisTextView.setText(String.valueOf(gridMap.getCurCoord()[1]-1));
-        directionAxisTextView.setText(sharedPreferences.getString("direction",""));
+        xAxisTextView.setText(String.valueOf(gridMap.getCurCoord()[0] - 1));
+        yAxisTextView.setText(String.valueOf(gridMap.getCurCoord()[1] - 1));
+        directionAxisTextView.setText(sharedPreferences.getString("direction", ""));
     }
 
     private static void showLog(String message) {
@@ -314,20 +340,19 @@ public class Home extends Fragment {
             String status = intent.getStringExtra("Status");
             sharedPreferences();
 
-            if(status.equals("connected")){
+            if (status.equals("connected")) {
                 try {
                     myDialog.dismiss();
-                } catch(NullPointerException e){
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
 
-                Log.d(TAG, "mBroadcastReceiver5: Device now connected to "+mDevice.getName());
+                Log.d(TAG, "mBroadcastReceiver5: Device now connected to " + mDevice.getName());
                 updateStatus("Device now connected to "
                         + mDevice.getName());
                 editor.putString("connStatus", "Connected to " + mDevice.getName());
-            }
-            else if(status.equals("disconnected")){
-                Log.d(TAG, "mBroadcastReceiver5: Disconnected from "+mDevice.getName());
+            } else if (status.equals("disconnected")) {
+                Log.d(TAG, "mBroadcastReceiver5: Disconnected from " + mDevice.getName());
                 updateStatus("Disconnected from "
                         + mDevice.getName());
 
@@ -343,94 +368,93 @@ public class Home extends Fragment {
     // RPi relays the EXACT SAME stm commands sent by algo back to android: Starts with "Algo|"
     // RPi sends the image id as "TARGET~<obID>~<ImValue>"
     // Other specific strings are to clear checklist
-//    BroadcastReceiver messageReceiver = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            PathTranslator pathTranslator = new PathTranslator(gridMap);    // For real-time updating on displayed gridmap
-//            String message = intent.getStringExtra("receivedMessage");
-//            showLog("receivedMessage: message --- " + message);
-//
-//            String[] cmdd = message.split(",");
-//
+    BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            PathTranslator pathTranslator = new PathTranslator(gridMap);    // For real-time updating on displayed gridmap
+            String message = intent.getStringExtra("receivedMessage");
+            showLog("receivedMessage: message --- " + message);
+
+            String[] cmdd = message.split(",");
+
 ////            if (message.contains(" "))
 ////            {
 ////                message= Arrays.toString(message.split(" "));
 ////            }
 ////            showLog("cmd1 --- " + cmdd[1]);
 ////            showLog("cmd2 --- " + cmdd[2]);
+
+
+            int[] global_store = gridMap.getCurCoord();
+            g_coordX = global_store[0];
+            g_coordY = global_store[1];
+            ArrayList<String> mapCoord = new ArrayList<>();
+
+            //STATUS:<input>
+            // Temporarily changed from STATUS to status for testing purposes. Change back if neccesary
+            if (message.contains("status")) {
+                robotStatusTextView.setText(message.split(":")[1].trim());
+            }
+            //ROBOT|5,4,EAST (Early version of updating robot position via comms)
+            if (message.contains("ROBOT")) {
+                String[] cmd = message.split("\\|");
+                String[] sentCoords = cmd[1].split(",");
+                String[] sentDirection = sentCoords[2].split("\\.");
+//                BluetoothCommunications.getMessageReceivedTextView().append("\n");
+                String direction = "";
+                String abc = String.join("", sentDirection);
+                if (abc.contains("EAST")) {
+                    direction = "right";
+                } else if (abc.contains("NORTH")) {
+                    direction = "up";
+                } else if (abc.contains("WEST")) {
+                    direction = "left";
+                } else if (abc.contains("SOUTH")) {
+                    direction = "down";
+                } else {
+                    direction = "";
+                }
+                // ADJUST THIS IF GRID COORDINATES ARE MESSED UP!! - Currently set to bottom left robot tile
+                //!!
+                //!!!
+                //!!!!!
+                //!!!!!!!!!!
+                gridMap.setCurCoord(Integer.valueOf(sentCoords[0]) + 2,  Integer.valueOf(sentCoords[1]) +1, direction);
+            }
+            //image format from RPI is "TARGET~<obID>~<ImValue>" eg TARGET,3,7
+            else if (message.contains("TARGET")) {
+                try {
+                    String[] cmd = message.split(",");
+                    String temp2 = "-1";
+                    BluetoothCommunications.getMessageReceivedTextView().append("Obstacle no: " + cmd[1] + "TARGET ID: " + cmd[2] + "\n");
+
+//                    if (cmd[2].contains("STOP"))
+//                    {
+//                        String temp=cmd[2];
+//                        String[] temp1=temp.split(" ");
+//                        temp2=temp1[0];
 //
+//                    }
 //
-//            int[] global_store = gridMap.getCurCoord();
-//            g_coordX = global_store[0];
-//            g_coordY = global_store[1];
-//            ArrayList<String> mapCoord = new ArrayList<>();
-//
-//            //STATUS:<input>
-//            if (message.contains("STATUS")) {
-//                robotStatusTextView.setText(message.split(":")[1]);
-//            }
-//            //ROBOT|5,4,EAST (Early version of updating robot position via comms)
-//            if(message.contains("ROBOT")) {
-//                String[] cmd = message.split("\\|");
-//                String[] sentCoords = cmd[1].split(",");
-//                String[] sentDirection = sentCoords[2].split("\\.");
-////                BluetoothCommunications.getMessageReceivedTextView().append("\n");
-//                String direction = "";
-//                String abc = String.join("", sentDirection);
-//                if (abc.contains("EAST")) {
-//                    direction = "right";
-//                }
-//                else if (abc.contains("NORTH")) {
-//                    direction = "up";
-//                }
-//                else if (abc.contains("WEST")) {
-//                    direction = "left";
-//                }
-//                else if (abc.contains("SOUTH")) {
-//                    direction = "down";
-//                }
-//                else{
-//                    direction = "";
-//                }
-//                gridMap.setCurCoord(Integer.valueOf(sentCoords[1]) + 2, 19 - Integer.valueOf(sentCoords[0]), direction);
-//            }
-//            //image format from RPI is "TARGET~<obID>~<ImValue>" eg TARGET~3~7
-//            else if(message.contains("TARGET")) {
-//                try {
-//                    String[] cmd = message.split(",");
-//                    String temp2="-1";
-//                    BluetoothCommunications.getMessageReceivedTextView().append("Obstacle no: " + cmd[1]+ "TARGET ID: " + cmd[2] + "\n");
-//
-////                    if (cmd[2].contains("STOP"))
-////                    {
-////                        String temp=cmd[2];
-////                        String[] temp1=temp.split(" ");
-////                        temp2=temp1[0];
-////
-////                    }
-//
-//                    gridMap.updateIDFromRpi(String.valueOf(Integer.valueOf(cmd[1])-1), cmd[2]);
-//                    obstacleID = String.valueOf(Integer.valueOf(cmd[1]) - 2);
-//
-//
+                    gridMap.updateIDFromRpi(String.valueOf(Integer.valueOf(cmd[1]) - 1), cmd[2]);
+                    obstacleID = String.valueOf(Integer.valueOf(cmd[1]) - 2);
+
+
 ////                    int ob= Integer.parseInt(obstacleID);
 //
-//                }
-//                catch(Exception e)
-//                {
-//                    e.printStackTrace();
-//                }
-//            }
-//            else if(message.contains("ARROW")){
-//                String[] cmd = message.split(",");
-////                BluetoothCommunications.getMessageReceivedTextView().append("Obstacle no: " + cmd[1]+ "TARGET ID: " + cmd[2] + "\n");
-//
-//                Home.refreshMessageReceivedNS("TASK2"+"\n");
-//                Home.refreshMessageReceivedNS("obstacle id: "+cmd[1]+", ARROW: "+cmd[2]);
-//
-//
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (message.contains("ARROW")) {
+                String[] cmd = message.split(",");
+//                BluetoothCommunications.getMessageReceivedTextView().append("Obstacle no: " + cmd[1]+ "TARGET ID: " + cmd[2] + "\n");
+
+                Home.refreshMessageReceivedNS("TASK2" + "\n");
+                Home.refreshMessageReceivedNS("obstacle id: " + cmd[1] + ", ARROW: " + cmd[2]);
+
+
 ////                updateStatus(cmd[0]+" "+ cmd[1]+" "+cmd[2]);
-//            }
+            }
 //            // OLD VER: Expects a syntax of e.g. Algo|f010. Commented out and implemented new version below
 ///*            if(message.contains("Algo")) {
 //                // translate the message after Algo|
@@ -442,83 +466,83 @@ public class Home extends Fragment {
 //            //NEW VER: Expects a syntax of eg. MOVE,<DISTANCE IN CM>,<DIRECTION>.
 //            //NEW VER: Expects a syntax of eg. TURN,<DIRECTION>.
 //
-//            //CASE 1 & 2: MoveInstruction or TurnInstruction sent
-//            else if(message.contains("MOVE") || message.contains("TURN")){
-//                updateStatus("translation");
-//                pathTranslator.translatePath(message); //splitting and translation will be done in PathTranslator
-//            }
-//            else if(message.contains("STOP"))
-//            {
-//                Home.refreshMessageReceivedNS("STOP received");
-////                showLog("received Stop");
-//                Home.stopTimerFlag = true;
-//                Home.stopWk9TimerFlag=true;
-//                timerHandler.removeCallbacks(ControlFragment.timerRunnableExplore);
-//                timerHandler.removeCallbacks(ControlFragment.timerRunnableFastest);
-//            }
-//            else{
-//                BluetoothCommunications.getMessageReceivedTextView().append("unknown message received");
-//                showLog("unknown message received");
-//            }
-//        }
-//    };
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data){
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        switch (requestCode){
-//            case 1:
-//                if(resultCode == Activity.RESULT_OK){
-//                    mBTDevice = data.getExtras().getParcelable("mBTDevice");
-//                    myUUID = (UUID) data.getSerializableExtra("myUUID");
-//                }
-//        }
-//    }
-//
-//    @Override
-//    public void onDestroy(){
-//        super.onDestroy();
-//        try{
-//            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(messageReceiver);
-//            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mBroadcastReceiver5);
-//        } catch(IllegalArgumentException e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @Override
-//    public void onPause(){
-//        super.onPause();
-//        try{
-//            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mBroadcastReceiver5);
-//        } catch(IllegalArgumentException e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//        try{
-//            IntentFilter filter2 = new IntentFilter("ConnectionStatus");
-//            LocalBroadcastManager.getInstance(getContext()).registerReceiver(mBroadcastReceiver5, filter2);
-//        } catch(IllegalArgumentException e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        showLog("Entering onSaveInstanceState");
-//        super.onSaveInstanceState(outState);
-//
-//        outState.putString(TAG, "onSaveInstanceState");
-//        showLog("Exiting onSaveInstanceState");
-//    }
+            //CASE 1 & 2: MoveInstruction or TurnInstruction sent
+            else if (message.contains("MOVE") || message.contains("TURN")) {
+                updateStatus("translation");
+                pathTranslator.translatePath(message); //splitting and translation will be done in PathTranslator
+            } else if (message.contains("STOP")) {
+                Home.refreshMessageReceivedNS("STOP received");
+//                showLog("received Stop");
+                Home.stopTimerFlag = true;
+                Home.stopWk9TimerFlag = true;
+                timerHandler.removeCallbacks(ControlFragment.timerRunnableExplore);
+                timerHandler.removeCallbacks(ControlFragment.timerRunnableFastest);
+            } else {
+                BluetoothCommunications.getMessageReceivedTextView().append("unknown message received");
+                showLog("unknown message received");
+            }
+        }
+    }
+
+            ;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 1:
+                if (resultCode == Activity.RESULT_OK) {
+                    mBTDevice = data.getExtras().getParcelable("mBTDevice");
+                    myUUID = (UUID) data.getSerializableExtra("myUUID");
+                }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(messageReceiver);
+            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mBroadcastReceiver5);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mBroadcastReceiver5);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            IntentFilter filter2 = new IntentFilter("ConnectionStatus");
+            LocalBroadcastManager.getInstance(getContext()).registerReceiver(mBroadcastReceiver5, filter2);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        showLog("Entering onSaveInstanceState");
+        super.onSaveInstanceState(outState);
+
+        outState.putString(TAG, "onSaveInstanceState");
+        showLog("Exiting onSaveInstanceState");
+    }
+
     private void updateStatus(String message) {
         Toast toast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP,0, 0);
+        toast.setGravity(Gravity.TOP, 0, 0);
         toast.show();
     }
 }
