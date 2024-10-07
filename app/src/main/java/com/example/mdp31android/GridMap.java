@@ -491,7 +491,7 @@ public class GridMap extends View {
         dir = (direction.equals("up")) ? "NORTH" : (direction.equals("down")) ? "SOUTH" : (direction.equals("left")) ? "WEST" : "EAST";
 
         if ((col - 2) >= 0 && (row - 1) >= 0) {
-            Home.printMessage("ROBOT" + "," + (col - 2) * 5 + "," + (row - 1) * 5 + "," + dir.toUpperCase());
+            Home.printMessage("ROBOT" + "," + (col - 2) + "," + (row - 1) + "," + dir.toUpperCase());
         } else {
             showLog("out of grid");
         }
@@ -617,7 +617,7 @@ public class GridMap extends View {
 
         if (((col - 1)) >= 0 && row >= 0) {
 
-            Home.printMessage("OBSTACLE" + "," + obstacleNumber + "," + (col - 1) * 10 + "," + (19 - row) * 10 + "," + (imageBearings.get(19 - row)[col - 1]).toUpperCase() + "\n");
+            Home.printMessage("OBSTACLE" + "," + obstacleNumber + "," + (col - 1)  + "," + (19 - row)  + "," + (imageBearings.get(19 - row)[col - 1]).toUpperCase() + "\n");
 //            BluetoothCommunications.getMessageReceivedTextView().append(Integer.toString((col - 1))+"\n");
 //            BluetoothCommunications.getMessageReceivedTextView().append(Integer.toString((19 - row))+"\n");
 //            BluetoothCommunications.getMessageReceivedTextView().append((imageBearings.get(19 - row)[col - 1]).toUpperCase()+"\n");
