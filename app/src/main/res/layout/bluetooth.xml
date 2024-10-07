@@ -5,19 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <Button
-        android:id="@+id/backBtn"
-        android:layout_width="57dp"
-        android:layout_height="56dp"
-        android:layout_centerHorizontal="true"
-        android:background="?android:attr/selectableItemBackground"
-        android:foreground="@drawable/back_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.004" />
-
     <TextView
         android:id="@+id/connStatusTextView"
         android:layout_width="180dp"
@@ -37,15 +24,15 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="172dp"
-        android:layout_height="43dp"
+        android:layout_width="147dp"
+        android:layout_height="40dp"
 
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="Bluetooth"
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/backBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView

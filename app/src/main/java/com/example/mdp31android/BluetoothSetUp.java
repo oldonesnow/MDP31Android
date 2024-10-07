@@ -257,7 +257,6 @@ public class BluetoothSetUp extends Fragment {
             }
         });
 
-        Button backBtn = root.findViewById(R.id.backBtn);
 
         connStatusTextView = root.findViewById(R.id.connStatusTextView);
         connStatus ="Disconnected";
@@ -267,18 +266,7 @@ public class BluetoothSetUp extends Fragment {
 
         connStatusTextView.setText(connStatus);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editor = sharedPreferences.edit();
-                editor.putString("connStatus", connStatusTextView.getText().toString());
-                editor.commit();
-                TextView status = Home.getBluetoothStatus();
-                String s = connStatusTextView.getText().toString();
-                //status.setText(s);
-                getActivity().finish();
-            }
-        });
+
 
         myDialog = new ProgressDialog(getContext());
         myDialog.setMessage("Waiting for other device to reconnect...");

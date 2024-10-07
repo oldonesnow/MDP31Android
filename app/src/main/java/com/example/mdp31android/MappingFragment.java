@@ -218,35 +218,6 @@ public class MappingFragment extends Fragment {
                     for (String s : obstaclePosition) {
 
                         String[] coords = s.split(",");
-//                        BluetoothCommunications.getMessageReceivedTextView().append(Arrays.toString(coords));
-
-//                        String direction2 = "";
-//                        switch (coords[2]) {
-//                            case "N":
-//                                direction2 = "NORTH";
-//                                break;
-//                            case "E":
-//                                direction2 = "EAST";
-//                                break;
-//                            case "W":
-//                                direction2 = "WEST";
-//                                break;
-//                            case "S":
-//                                direction2 = "SOUTH";
-//                                break;
-//                            default:
-//                                direction2 = "null";
-//                        }
-//
-////                        BluetoothCommunications.getMessageReceivedTextView().append(coords[0]);
-////                        BluetoothCommunications.getMessageReceivedTextView().append(coords[1]);
-////                        BluetoothCommunications.getMessageReceivedTextView().append(direction2);
-//
-//                        gridMap.imageBearings.get(Integer.parseInt(coords[1]))[Integer.parseInt(coords[0])] = direction2;
-
-
-
-//                        gridMap.setObstacleCoord(Integer.parseInt(coords[0]) + 1, Integer.parseInt(coords[1]) + 1, "","");
                         String direction = "";
                         switch (coords[2]) {
                             case "N":
