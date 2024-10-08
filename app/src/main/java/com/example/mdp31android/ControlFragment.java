@@ -229,7 +229,7 @@ public class ControlFragment extends Fragment {
                     // Get String value that represents obstacle configuration
                     String msg = gridMap.getObstacles();
                     // Send this String over via BT
-                    //Home.printCoords(msg);
+                    Home.printCoords(msg);
                     //Send BEGIN to the robot
                     Home.printMessage("BEGIN"); //send a string "BEGIN" to the RPI
                     // Start timer
