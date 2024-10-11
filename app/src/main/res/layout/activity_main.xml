@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/spongebob_background"
+
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
@@ -65,9 +66,9 @@
                 android:id="@+id/tabs2"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@color/lighterBlue"
+                android:background="#80ADD8E6"
                 app:tabGravity="center"
-                app:tabIndicator="@color/lighterBlue"
+                app:tabIndicator="@color/transparent"
                 app:tabIndicatorAnimationMode="elastic"
                 app:tabIndicatorColor="@null"
                 app:tabIndicatorGravity="stretch"

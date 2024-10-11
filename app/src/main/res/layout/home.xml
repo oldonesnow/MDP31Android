@@ -223,17 +223,19 @@
                     <com.google.android.material.tabs.TabLayout
 
                         android:id="@+id/tabs"
+                        android:background="@color/transparent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:tabGravity="center"
-                        app:tabIndicator="@color/lightGreen"
+                        app:tabIndicator="@null"
                         app:tabIndicatorAnimationMode="elastic"
                         app:tabIndicatorColor="@null"
                         app:tabIndicatorGravity="stretch"
+                        app:tabTextColor="@color/colorBlack"
                         app:tabMinWidth="130dp"
                         app:tabMode="scrollable"
                         app:tabRippleColor="@null"
-                        app:tabSelectedTextColor="@color/colorBlack" />
+                        app:tabSelectedTextColor="@color/colorWhite" />
 
                 </androidx.viewpager.widget.ViewPager>
             </LinearLayout>
