@@ -2063,18 +2063,18 @@ public class GridMap extends View {
 
     // Modified for algo side to denote each obstacle as: (algoX, algoY, algoDirection, algoObsId)
     // 2nd half of getObstacles()
-    public String translateCoord(String msg) {
+    public String translateCoord(String msg){
         String translatedMsg = "";
         // split msg by '|'
         String[] msgSections = msg.split("\\|");
-        for (int i = 1; i < msgSections.length; i++) {   // ignore 1st sub string since its "ALG"
+        for(int i = 1; i < msgSections.length; i++) {   // ignore 1st sub string since its "ALG"
             String[] msgSubSections = msgSections[i].split(",");
             // algoX and algoY are 'related' to (x, y) coordinates on a 0-indexed grid, e.g. (10, 7) in (x, y) = (105, 75) in (algoX, algoY)
             int algoX = Integer.parseInt(msgSubSections[0]) * 10 + 5;
             int algoY = Integer.parseInt(msgSubSections[1]) * 10 + 5;
             // algoDirection is a mapping of 4 values for each direction: North = 90, East = 0, South = -90, West = 180
             int algoDirection;
-            switch (msgSubSections[2].charAt(0)) {
+            switch(msgSubSections[2].charAt(0)) {
                 case 'N':
                     algoDirection = 90;
                     break;
@@ -2093,13 +2093,12 @@ public class GridMap extends View {
             }
             // algo_obs_id is zero-index obstacle id number, probably can just use a for loop w/ i < obstacleCoord.size()? Assuming that it doesn't affect the algo
             int algoObsId = Integer.parseInt(msgSubSections[3]);
-            translatedMsg += algoX + "," + algoY + "," + algoDirection + "," + algoObsId;
+            translatedMsg += algoObsId + "," + algoX + "," + algoY + "," + algoDirection;
 //            obstList.add(new int[]{algoX, algoY, algoDirection, algoObsId});
-            if (i < msgSections.length - 1)
-                translatedMsg += "|";  // add separator for all obstacles except the last
+            if(i < msgSections.length - 1) translatedMsg += "|";  // add separator for all obstacles except the last
         }
         // The '_' is just a special character to denote the position to split this resulting string later on
-        return msg + "_ALG|" + translatedMsg;
+        return msg + "OBS|" + translatedMsg;
     }
 
     public static String saveObstacleList() {    // used for the save/load map functionality
