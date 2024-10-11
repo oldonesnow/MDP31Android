@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs2 = findViewById(R.id.tabs2);
         tabs2.setupWithViewPager(viewPager2);
 
+        viewPager2.setCurrentItem(1); // 1 is the index of the "Bluetooth" fragment
+
         // Set up sharedPreferences
         MainActivity.context = getApplicationContext();
 
