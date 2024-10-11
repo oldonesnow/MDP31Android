@@ -228,10 +228,8 @@ public class ControlFragment extends Fragment {
                 else if (exploreToggleBtn.getText().equals("STOP")) {
                     // Get String value that represents obstacle configuration
                     String msg = gridMap.getObstacles();
-                    // Send this String over via BT
+                    Home.printMessage("BEGIN");
                     Home.printCoords(msg);
-                    //Send BEGIN to the robot
-                    Home.printMessage("BEGIN"); //send a string "BEGIN" to the RPI
                     // Start timer
                     Home.stopTimerFlag = false;
                     showToast("Task 1 timer start!");
