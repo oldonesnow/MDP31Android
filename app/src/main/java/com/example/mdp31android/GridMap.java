@@ -2067,38 +2067,47 @@ public class GridMap extends View {
         String translatedMsg = "";
         // split msg by '|'
         String[] msgSections = msg.split("\\|");
+
         for(int i = 1; i < msgSections.length; i++) {   // ignore 1st sub string since its "ALG"
             String[] msgSubSections = msgSections[i].split(",");
+
+            if (msgSubSections.length < 4) {
+                showLog("Invalid message format at section " + i + ": " + msgSections[i]);
+                continue;  // Skip this iteration if the subsections are not valid
+            }
             // algoX and algoY are 'related' to (x, y) coordinates on a 0-indexed grid, e.g. (10, 7) in (x, y) = (105, 75) in (algoX, algoY)
-            int algoX = Integer.parseInt(msgSubSections[0]) * 10 + 5;
-            int algoY = Integer.parseInt(msgSubSections[1]) * 10 + 5;
+            int algoX = Integer.parseInt(msgSubSections[0]);
+            int algoY = Integer.parseInt(msgSubSections[1]);
             // algoDirection is a mapping of 4 values for each direction: North = 90, East = 0, South = -90, West = 180
-            int algoDirection;
+            String algoDirection;
             switch(msgSubSections[2].charAt(0)) {
                 case 'N':
-                    algoDirection = 90;
+                    algoDirection = "North";
                     break;
                 case 'S':
-                    algoDirection = -90;
+                    algoDirection = "South";
                     break;
                 case 'E':
-                    algoDirection = 0;
+                    algoDirection = "East";
                     break;
                 case 'W':
-                    algoDirection = 180;
+                    algoDirection = "West";
                     break;
                 default:    // should not happen (in theory)
                     showLog("Invalid direction character!");
-                    algoDirection = -1;
+                    algoDirection = "NIL";
             }
             // algo_obs_id is zero-index obstacle id number, probably can just use a for loop w/ i < obstacleCoord.size()? Assuming that it doesn't affect the algo
             int algoObsId = Integer.parseInt(msgSubSections[3]);
-            translatedMsg += algoObsId + "," + algoX + "," + algoY + "," + algoDirection;
+            translatedMsg += "OBS," + (algoObsId+1) + "," + algoX + "," + algoY + "," + algoDirection;
 //            obstList.add(new int[]{algoX, algoY, algoDirection, algoObsId});
             if(i < msgSections.length - 1) translatedMsg += "|";  // add separator for all obstacles except the last
         }
         // The '_' is just a special character to denote the position to split this resulting string later on
-        return msg + "OBS|" + translatedMsg;
+        Home.printMessage("TESTINGGGG");
+        Home.printMessage(translatedMsg);
+        Home.printMessage("TESTINGGGG");
+        return msg + "_" + translatedMsg;
     }
 
     public static String saveObstacleList() {    // used for the save/load map functionality
