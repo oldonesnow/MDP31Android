@@ -2104,9 +2104,7 @@ public class GridMap extends View {
             if(i < msgSections.length - 1) translatedMsg += "|";  // add separator for all obstacles except the last
         }
         // The '_' is just a special character to denote the position to split this resulting string later on
-        Home.printMessage("TESTINGGGG");
         Home.printMessage(translatedMsg);
-        Home.printMessage("TESTINGGGG");
         return msg + "_" + translatedMsg;
     }
 

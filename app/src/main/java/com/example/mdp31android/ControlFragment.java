@@ -228,7 +228,12 @@ public class ControlFragment extends Fragment {
                 else if (exploreToggleBtn.getText().equals("STOP")) {
                     // Get String value that represents obstacle configuration
                     String msg = gridMap.getObstacles();
-                    Home.printMessage("BEGIN");
+                    Home.printMessage("BEGIN\n");
+                    try {
+                        Thread.sleep(100); // 100 milliseconds delay
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     Home.printCoords(msg);
                     // Start timer
                     Home.stopTimerFlag = false;
@@ -259,7 +264,7 @@ public class ControlFragment extends Fragment {
                 }
                 else if (fastestToggleBtn.getText().equals("STOP")) {
                     showToast("Task 2 timer start!");
-                    Home.printMessage("BEGIN"); //send a string "BEGIN" to the RPI
+                    Home.printMessage("BEGIN2\n"); //send a string "BEGIN" to the RPI
                     Home.stopWk9TimerFlag = false;
                     robotStatusTextView.setText("Task 2 Started");
                     fastestTimer = System.currentTimeMillis();

@@ -248,9 +248,7 @@ public class Home extends Fragment {
         // Display both untranslated and translated coordinates on CHAT (for debugging)
         refreshMessageReceivedNS("Untranslated Coordinates: " + strArr[0] + "\n");
         refreshMessageReceivedNS("Translated Coordinates: " + strArr[1]);
-        Home.printMessage("TESTINGGGG");
         Home.printMessage(strArr[1]);
-        Home.printMessage("TESTINGGGG");
         showLog("Exiting printCoords");
     }
 
