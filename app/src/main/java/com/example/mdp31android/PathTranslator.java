@@ -209,34 +209,35 @@ public class PathTranslator {
         char commandType = 'z'; //commandType is a single character for switch case
         int commandValue = 0; //commandValue represents the value to move forwards or backwards.
 
-        //Case 1: is a MOVE command. Expects a syntax of eg. MOVE,<DISTANCE IN CM>,<DIRECTION>.
-        if(stmCommand.contains("MOVE")){
+        //Case 1: is a MOVE command. Expects a syntax of e.g., MOVE,<DISTANCE IN CM>,<DIRECTION>.
+        if (stmCommand.contains("MOVE")) {
+            try {
+                // Split the command by commas
+                String[] parts = stmCommand.split(",");
 
-            try { //set commandValue to <DISTANCE IN CM>
-                commandValue = Integer.parseInt(stmCommand.split(",")[1]);
+                // Parse the distance value (second part of the command)
+                commandValue = Integer.parseInt(parts[1]);
 
-            } catch(Exception e) {}
+                // Set commandType based on the direction (third part of the command)
+                String direction = parts[2].replace("\n", "").trim(); // Ensure any newline or spaces are removed
+                showLog("Direction: " + direction);
 
-//            try { //set commandValue to <DISTANCE IN CM>
-//                 commandValue = Integer.parseInt(stmCommand.split(",")[2]);
-//
-//            } catch(Exception e) {}
+                if (direction.equalsIgnoreCase("FORWARD")) {
+                    commandType = 'f';
+                } else if (direction.equalsIgnoreCase("BACKWARD")) {
+                    commandType = 'b';
+                }
 
-            //set commandType for <DIRECTION>
-            String direction = stmCommand.split(",")[2];
-            showLog("directions"+direction);
+                // You can now use commandType and commandValue for further logic
+                showLog("Command Type: " + commandType);
+                showLog("Command Value: " + commandValue);
 
-            commandValue = Integer.valueOf(stmCommand.split(",")[2].replace("\n",""));
-
-//showLog(String.valueOf(Integer.parseInt(stmCommand.split(",")[2])));
-
-            if(direction.equals("FORWARD")){
-                commandType = 'f';
-            }
-            else if (direction.equals("BACKWARD")){
-                commandType = 'b';
+            } catch (Exception e) {
+                // Handle potential parsing errors here
+                showLog("Error parsing MOVE command: " + e.getMessage());
             }
         }
+
         //Case 2: is a TURN command. Expects a syntax of eg. TURN,<DIRECTION>.
         else if (stmCommand.contains("TURN")){
             String direction = stmCommand.split(",")[1];

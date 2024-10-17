@@ -393,7 +393,7 @@ public class Home extends Fragment {
 
             //STATUS:<input>
             // Temporarily changed from STATUS to status for testing purposes. Change back if neccesary
-            if (message.contains("status")) {
+            if (message.contains("STATUS")) {
                 robotStatusTextView.setText(message.split(":")[1].trim());
             }
             //ROBOT|5,4,EAST (Early version of updating robot position via comms)
