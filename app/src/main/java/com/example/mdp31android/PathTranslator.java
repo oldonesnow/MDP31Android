@@ -223,7 +223,7 @@ public class PathTranslator {
 //            } catch(Exception e) {}
 
             //set commandType for <DIRECTION>
-            String direction = stmCommand.split(",")[1];
+            String direction = stmCommand.split(",")[2];
             showLog("directions"+direction);
 
             commandValue = Integer.valueOf(stmCommand.split(",")[2].replace("\n",""));
