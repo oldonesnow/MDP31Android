@@ -2001,16 +2001,16 @@ public class GridMap extends View {
             String algoDirection;
             switch(msgSubSections[2].charAt(0)) {
                 case 'N':
-                    algoDirection = "North";
+                    algoDirection = "NORTH";
                     break;
                 case 'S':
-                    algoDirection = "South";
+                    algoDirection = "SOUTH";
                     break;
                 case 'E':
-                    algoDirection = "East";
+                    algoDirection = "EAST";
                     break;
                 case 'W':
-                    algoDirection = "West";
+                    algoDirection = "WEST";
                     break;
                 default:    // should not happen (in theory)
                     showLog("Invalid direction character!");
